@@ -1,0 +1,77 @@
+1. Description:
+The question this article focuses on is a very old intellectual question. However, the thoughts and algorithms solving it is still worth thinking.
+
+2. Question:
+There are 12 identical balls in the desk except for one abnormal ball inside having different weight. Besides, apart from the 12 balls, there is scale on the desk. But the scale is without counterweight. So, this scale can only be used for telling which one is heavier or lighter between two items. The question is how to locate the abnormal ball by 3 times weighing for those balls.
+Remark: in this question, we do not know whether the abnormal ball is lighter or heavier than the normal.
+
+3. Solution:
+Notation: we denote WR as the weighing relationship between any two different items
+In this place,
+if A is equal to B, we denote WR(A,B) = equal;
+if A is heavier than B, we denote WR(A,B) = down;
+if A is lighter than B, we denote WR(A,B) = up;
+First we need to divide those 12 balls into 3 groups: A = {a1,a2,a3,a4}; B = {b1,b2,b3,b4}; C = {c1,c2,c3,c4};
+1st Weighing: A B
+	if WR(A,B) = equal
+		the abnormal ball should be in C
+		2st Weighing {a1,a2,a3},{c1,c2,c3}
+			if WR({a1,a2,a3}, {c1,c2,c3}) = equal
+				c4 is the abnormal ball
+			else
+				the abnormal ball should be among {c1,c2,c3}
+				note down the WR of {a1,a2,a3} and {c1,c2,c3}
+				Here, we consider the case: the abnormal ball is heavier,i.e. WR({a1,a2,a3},{c1,c2,c3}) = up
+				3st Weighing c1 c2
+					if WR(c1,c2) = equal
+						c3 is the abnormal ball
+					else
+						whatever the heavier one between c1 and c2 is the abnormal
+					end
+			end
+	else
+	the abnormal ball should be among {a1,a2,a3,a4,b1,b2,b3,b4}
+	note down the WR of A = {a1,a2,a3,a4} and B = {b1,b2,b3,b4}
+	in this place we denote the case is WR(A,B) = up for convenient statement
+	Reconstruct: 
+	divide those balls into three groups including X = {a1,a2,b1}, Y = {a3,b2,b3}, and Z = {b4,a4,c1}; 
+	c1 is a normal ball as checked before
+	2st Weighing: X Z
+		if WR(X,Z) = equal
+			the abnormal ball is in Z
+			3st Weighing: c1 a4
+				if WR(c1,a4) = equal
+					the abnormal ball is b4
+				else
+					the abnormal ball is a4
+				end
+		end
+		if WR(X,Z) = up
+			the abnormal ball should be among a1, a2 and b4
+			3st Weighing: a1 a2
+				if WR(a1,a2) = up
+					a1 is the abnormal ball
+				end
+				if WR(a1,a2) = down
+					a2 is the abnormal ball
+				end
+				if WR(a1,a2) = equal
+					b4 is the abnormal ball
+				end
+		end
+		if WR(X,Z)=down
+			the abnormal ball should be between b1 and a4
+			3st Weighing b1 c1
+				if WR(b1,c1) = equal
+					a4 is the abnormal ball
+				else
+					b1 is the abnormal ball
+				end
+		end
+	end
+Finally, we can obtain the abnormal ball within 3 moves.
+Tips: 
+There is unique abnormal ball among the 12 balls. 
+The weight relationship among balls does not change during procedure. 
+(Applied Math is dreaming of coding... ...)
+Author: Jingwei Guo
